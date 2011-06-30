@@ -1,0 +1,46 @@
+Categoria:
+  Categoria_1:
+    nombre: venta
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Categoria_2:
+    nombre: fiesta
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+Evento:
+  Evento_1:
+    nombre: ritoque
+    Categoria: Categoria_2
+    fecha_inicio: '2009-01-03 00:00:00'
+    fecha_termino: '2008-04-03 00:00:00'
+    lugar: Ritoque
+    logo: Array
+    telefono: '12345'
+    mail: ritoque@ritoque.com
+    twitter: ritoque
+    facebook: ritoque
+    web1: ''
+    ranking: null
+    descripcion: ''
+    is_active: true
+    created_at: '2011-06-28 07:15:11'
+    updated_at: '2011-06-28 07:15:11'
+sfGuardGroup:
+  sfGuardGroup_1:
+    name: usuario
+    description: null
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+sfGuardUser:
+  sfGuardUser_1:
+    username: francisco000@gmail.com
+    facebook_uid: null
+    twitter_uid: null
+    algorithm: sha1
+    salt: 5b695367b8cccbd961a037a88c755524
+    password: 5ba74ac2eb208abcd9dcd0b80a9c50f6e72249db
+    is_active: true
+    is_super_admin: false
+    last_login: null
+    created_at: '2011-06-28 07:20:15'
+    updated_at: '2011-06-28 07:20:15'

@@ -198,11 +198,11 @@ class PhingTask extends Task {
      * @return void
      */
     private function processFile()  {
-
+
     	$buildFailed = false;
         $savedDir = $this->dir;
         $savedPhingFile = $this->phingFile;
-        $savedTarget = $this->newTarget;
+        $savedTarget = $this->newTarget;
         
 		$savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
         

@@ -53,16 +53,16 @@ class DefaultLogger implements StreamRequiredBuildLogger {
      *  Time that the build started
      *  @var int
      */
-    protected $startTime;
-    
-    /**
-     * @var OutputStream Stream to use for standard output.
-     */
-    protected $out;
-    
-    /**
-     * @var OutputStream Stream to use for error output.
-     */
+    protected $startTime;
+    
+    /**
+     * @var OutputStream Stream to use for standard output.
+     */
+    protected $out;
+    
+    /**
+     * @var OutputStream Stream to use for error output.
+     */
     protected $err;
 
     /**
@@ -91,30 +91,30 @@ class DefaultLogger implements StreamRequiredBuildLogger {
      *
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
-     * @param int $level The logging level for the logger.
+     * @param int $level The logging level for the logger.
      * @see BuildLogger#setMessageOutputLevel()
      */
     public function setMessageOutputLevel($level) {
         $this->msgOutputLevel = (int) $level;
-    }
-    
-    /**
-     * Sets the output stream.
-     * @param OutputStream $output
-     * @see BuildLogger#setOutputStream()
-     */
-    public function setOutputStream(OutputStream $output) {
-    	$this->out = $output;
     }
-	
-    /**
-     * Sets the error stream.
-     * @param OutputStream $err
-     * @see BuildLogger#setErrorStream()
-     */
-    public function setErrorStream(OutputStream $err) {
-    	$this->err = $err;
-    }
+    
+    /**
+     * Sets the output stream.
+     * @param OutputStream $output
+     * @see BuildLogger#setOutputStream()
+     */
+    public function setOutputStream(OutputStream $output) {
+    	$this->out = $output;
+    }
+	
+    /**
+     * Sets the error stream.
+     * @param OutputStream $err
+     * @see BuildLogger#setErrorStream()
+     */
+    public function setErrorStream(OutputStream $err) {
+    	$this->err = $err;
+    }
     
     /**
     *  Sets the start-time when the build started. Used for calculating
@@ -149,30 +149,30 @@ class DefaultLogger implements StreamRequiredBuildLogger {
                 $msg .= $error->getMessage();
             }
         }
-        $msg .= PHP_EOL . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
-        
-    	if ($error === null) {
-            $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
-        } else {
-            $this->printMessage($msg, $this->err, Project::MSG_ERR);
+        $msg .= PHP_EOL . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
+        
+    	if ($error === null) {
+            $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
+        } else {
+            $this->printMessage($msg, $this->err, Project::MSG_ERR);
         }
     }
-
-	/**
-     * Get the message to return when a build failed.
-     * @return string The classic "BUILD FAILED"
-     */
-    protected function getBuildFailedMessage() {
-        return "BUILD FAILED";
-    }
-
-    /**
-     * Get the message to return when a build succeeded.
-     * @return string The classic "BUILD FINISHED"
-     */
-    protected function getBuildSuccessfulMessage() {
-        return "BUILD FINISHED";
-    }
+
+	/**
+     * Get the message to return when a build failed.
+     * @return string The classic "BUILD FAILED"
+     */
+    protected function getBuildFailedMessage() {
+        return "BUILD FAILED";
+    }
+
+    /**
+     * Get the message to return when a build succeeded.
+     * @return string The classic "BUILD FINISHED"
+     */
+    protected function getBuildSuccessfulMessage() {
+        return "BUILD FINISHED";
+    }
     
     /**
      *  Prints the current target name
@@ -182,8 +182,8 @@ class DefaultLogger implements StreamRequiredBuildLogger {
      *  @see    BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event) {
-        if (Project::MSG_INFO <= $this->msgOutputLevel) {
-        	$msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . PHP_EOL;
+        if (Project::MSG_INFO <= $this->msgOutputLevel) {
+        	$msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . PHP_EOL;
         	$this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -224,7 +224,7 @@ class DefaultLogger implements StreamRequiredBuildLogger {
      *  @access public
      *  @see    BuildEvent::getMessage()
      */
-    public function messageLogged(BuildEvent $event) {
+    public function messageLogged(BuildEvent $event) {
     	$priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
             $msg = "";
@@ -232,14 +232,14 @@ class DefaultLogger implements StreamRequiredBuildLogger {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
                 $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
-            }
+            }
             
-            $msg .= $event->getMessage();
-            
-            if ($priority != Project::MSG_ERR) {
-                $this->printMessage($msg, $this->out, $priority);
-            } else {
-            	$this->printMessage($msg, $this->err, $priority);
+            $msg .= $event->getMessage();
+            
+            if ($priority != Project::MSG_ERR) {
+                $this->printMessage($msg, $this->out, $priority);
+            } else {
+            	$this->printMessage($msg, $this->err, $priority);
             }
         }
     }
@@ -266,13 +266,13 @@ class DefaultLogger implements StreamRequiredBuildLogger {
      * Prints a message to console.
      * 
      * @param string $message  The message to print. 
-     *                 Should not be <code>null</code>.
+     *                 Should not be <code>null</code>.
      * @param resource $stream The stream to use for message printing.
      * @param int $priority The priority of the message. 
      *                 (Ignored in this implementation.)
      * @return void
      */
-    protected function printMessage($message, OutputStream $stream, $priority) {
+    protected function printMessage($message, OutputStream $stream, $priority) {
     	$stream->write($message . PHP_EOL);
     }    
 }

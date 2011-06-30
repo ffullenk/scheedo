@@ -9,6 +9,10 @@
     <?php include_javascripts() ?>
   </head>
   <body>
+  <?php if ($sf_user->isAuthenticated()): ?>
+<?php echo link_to('Salir','@sf_guard_signout') ?>
+<?php endif ?>
+<br><br>
     <?php echo $sf_content ?>
   </body>
 </html>
