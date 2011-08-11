@@ -33,7 +33,7 @@ Evento:
     Timestampable: ~
   columns:
     id:             {  type: integer, notnull: true, autoincrement: true, primary: true}
-    nombre:         {  type: string(45)   }
+    nombre:         {  type: string(50)   }
     user_id:        {  type: integer      }
     categoria_id:   {  type: integer      }
     fecha_inicio:   {  type: timestamp(25)}
