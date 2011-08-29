@@ -1,129 +1,34 @@
-#Lo siguiente es para cambiar el nombre a las tablas que genera el plugin
-#sfGuardDoctrine el cual tenia nombres de tablas largos y poco semanticos
-#INICIO CAMBIO NOMBRE TABLAS PLUGIN sfDoctrineGuard
-sfGuardGroup:
-  tableName: groups
-
-sfGuardPermission:
-  tableName: permissions
-
-sfGuardGroupPermission:
-  tableName: groups_permissions
-
-sfGuardUser:
-  tableName:  user_login
-
-sfGuardUserPermission:
-  tableName: user_permission
-
-sfGuardUserGroup:
-  tableName: user_group
-
-sfGuardRememberKey:
-  tableName: remember_key
-
-sfGuardForgotPassword:
-  tableName: forgot_password
-#FIN CAMBIO NOMBRE TABLAS PLUGIN sfDoctrineGuard
-
-  
-Evento:
-  tableName: evento
-  actAs:
-    Timestampable: ~
+ScheedoUser:
+  actAs: { Timestampable: ~ }
   columns:
-    id:             {  type: integer, notnull: true, autoincrement: true, primary: true}
-    nombre:         {  type: string(50)   }
-    user_id:        {  type: integer      }
-    categoria_id:   {  type: integer      }
-    fecha_inicio:   {  type: timestamp(25)}
-    fecha_termino:  {  type: timestamp(25)}
-    lugar:          {  type: string(45)   }
-    logo:           {  type: blob         }
-    telefono:       {  type: string(20)   }
-    mail:           {  type: string(45)   }
-    twitter:        {  type: string(20)   } 
-    facebook:       {  type: string(20)   }
-    web1:           {  type: string(100)  }  
-    ranking:        {  type: integer      }
-    descripcion:    {  type: string(4000) }
-    is_active:
-      type: boolean
-      default: 1
-  indexes:
-    is_active_idx:
-      fields: [is_active]
+    scheedouser_id:  { type: integer, notnull: true, primary: true }
+    first_name:      { type: string(255), notnull: true }
+    last_name: { type: string(255), notnull: true }
+    city: { type: string(255), notnull: true }
+    birthday: {type: timestamp, notnull: true  }
+    password: { type: string(255), notnull: true } 
+
+ScheedoNormalUser:
+  actAs: { Timestampable: ~ }
+  columns:
+    scheedonormaluser_id:  { type: integer, notnull: true, primary: true }
+    facebook:      { type: string(255), notnull: false }
+    twitter:      { type: string(255), notnull: false }
+    flickr:      { type: string(255), notnull: false }
+    scheedouser_id:  { type: integer, notnull: true }	
   relations:
-    User:
-      class:        sfGuardUser
-      local:        user_id
-      foreign:      id
-      foreignAlias: Eventos
-      foreignType:  many
-      type:         one
-      onDelete:     CASCADE	  
-    Categoria:
-      class:        Categoria
-      local:        categoria_id
-      foreign:      id
-      foreignAlias: Categoria
-      foreignType:  one
-      type:         one
-      
+    ScheedoUser: { onDelete: CASCADE, local: scheedouser_id, foreign: scheedouser_id, foreignAlias: ScheedoUser } 
 
-Categoria:
-  tableName: categoria
-  actAs:
-    Timestampable: ~
+
+ScheedoBusiness:
+  actAs: { Timestampable: ~ }
   columns:
-    id:             {  type: integer, notnull: true, autoincrement: true, primary: true }
-    nombre:         {  type: string(45)   }
-#tabla de perfil de usuario:
-sfGuardUserProfile:
-  tableName: user_profile
-  actAs:
-    Timestampable: ~
-  columns:
-    user_id:        {  type: integer,  notnull: true  }
-    first_name:     {  type: string(150)  }
-    last_name:      {  type: string(150)  }
-    address:        {  type: string(100)  }
-    token:          {  type: string(32)   }
-    foto:           {  type: blob         }
-    ubicacion:      {  type: string(45)   }
-    puntuacion:     {  type: integer      } 
+    scheedobusiness_id:  { type: integer, notnull: true, primary: true }
+    facebook:      { type: string(255), notnull: false }
+    twitter:      { type: string(255), notnull: false }
+    flickr:      { type: string(255), notnull: false }   
+    businessname:      { type: string(255), notnull: true }   
+    ownershipvisibility:      { type: binary}   
+    scheedouser_id:  { type: integer, notnull: true }	
   relations:
-    User:
-      class:        sfGuardUser
-      local:        user_id
-      foreign:      id
-      foreignAlias: Profile
-      foreignType:  one
-      type:         one
-      onDelete:     CASCADE
-Comentario:
-  tableName: comentario
-  actAs:
-    Timestampable: ~
-  columns:
-    id:             {  type: integer, notnull: true, autoincrement: true, primary: true  }
-    texto:          {  type: string(150)   }
-    evento_id:      {  type: integer       }
-    user_id:        {  type: integer       }
-  relations:
-    Evento:
-      class:        Evento
-      local:        evento_id
-      foreign:      id
-      type:         one
-      foreignType:  many
-      foreignAlias: Comentarios
-      onDelete:     CASCADE
-    User:
-      class:        sfGuardUser
-      local:        user_id
-      foreign:      id
-      foreignAlias: Comentarios
-      foreignType:  many
-      type:         one
-      onDelete:     CASCADE
+    ScheedoUser: { onDelete: CASCADE, local: scheedouser_id, foreign: scheedouser_id, foreignAlias: ScheedoUser }     	
